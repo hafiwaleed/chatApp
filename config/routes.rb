@@ -17,7 +17,11 @@ Rails.application.routes.draw do
 
   # config/routes.rb
   resources :conversations, only: [:index, :create] do
-  	resources :messages, only: [:index, :create]
+  	resources :messages, only: [:index, :create] do 
+      collection do
+        get "user_messages"
+      end
+    end
   end
 
 end

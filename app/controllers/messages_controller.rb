@@ -12,7 +12,16 @@ class MessagesController < ApplicationController
 			current_user.id, false).update_all(read: true)
 
 		@message = @conversation.messages.new
-		render :partial => "index", :layout => false
+	end
+
+	def user_messages
+		@messages = @conversation.messages
+
+		@messages.where("user_id != ? AND read = ?",
+			current_user.id, false).update_all(read: true)
+
+		@message = @conversation.messages.new
+		render :partial => "user_messages", :layout => false
 	end
 
 	def create
