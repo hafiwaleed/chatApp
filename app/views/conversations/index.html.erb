@@ -1,0 +1,30 @@
+<h1>Inbox</h1>
+<div class="row">
+	<div class="col-sm-2">
+		<ul>
+			<% @conversations.each do |conversation| %>
+				<%= link_to conversation.recipient(current_user).name, conversation_messages_path(conversation), class: "chat-user" %>
+				<% if !conversation.unread_message_count(current_user).zero? %>
+        			(<%= conversation.unread_message_count(current_user) %>)
+      			<% end %>	
+				<br>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+<h2>Users</h2>
+<div class="row">
+	<div class="col-sm-2">
+		<ul>
+  			<% @users.each do |user| %>
+    			<%= link_to user.name, conversations_path(sender_id: current_user.id,receiver_id: user.id), class: "chat-user" %>
+    			<br>
+  			<% end %>
+		</ul>
+	</div>
+</div>
+
+<div class="row user-messages">
+
+</div>
